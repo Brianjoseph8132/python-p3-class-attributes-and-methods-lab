@@ -1,2 +1,67 @@
 class Song:
-    pass
+    # Class attributes
+    count = 0  # Keeps track of the number of songs
+    genres = []  # List to hold unique genres
+    artists = []  # List to hold unique artists
+    genre_count = {}  # Dictionary to count songs by genre
+    artist_count = {}  # Dictionary to count songs by artist
+
+    def __init__(self, name, artist, genre):
+        self.name = name
+        self.artist = artist
+        self.genre = genre
+
+        # Increment song count when a new song is created
+        Song.add_song_to_count()
+
+        # Add genre and artist to their respective lists and update counts
+        Song.add_to_genres(genre)
+        Song.add_to_artists(artist)
+        Song.add_to_genre_count(genre)
+        Song.add_to_artist_count(artist)
+
+    @classmethod
+    def add_song_to_count(cls):
+        """Increment the count of songs."""
+        cls.count += 1
+
+    @classmethod
+    def add_to_genres(cls, genre):
+        """Add genre to genres list if it's not already there."""
+        if genre not in cls.genres:
+            cls.genres.append(genre)
+
+    @classmethod
+    def add_to_artists(cls, artist):
+        """Add artist to artists list if it's not already there."""
+        if artist not in cls.artists:
+            cls.artists.append(artist)
+
+    @classmethod
+    def add_to_genre_count(cls, genre):
+        """Increment the count for the genre."""
+        if genre in cls.genre_count:
+            cls.genre_count[genre] += 1
+        else:
+            cls.genre_count[genre] = 1
+
+    @classmethod
+    def add_to_artist_count(cls, artist):
+        """Increment the count for the artist."""
+        if artist in cls.artist_count:
+            cls.artist_count[artist] += 1
+        else:
+            cls.artist_count[artist] = 1
+
+# Example usage:
+ninety_nine_problems = Song("99 Problems", "Jay-Z", "Rap")
+print(ninety_nine_problems.name)  # "99 Problems"
+print(ninety_nine_problems.artist)  # "Jay-Z"
+print(ninety_nine_problems.genre)  # "Rap"
+
+# Access class attributes
+print(Song.count)  # Number of songs
+print(Song.genres)  # List of unique genres
+print(Song.artists)  # List of unique artists
+print(Song.genre_count)  # Genre histogram
+print(Song.artist_count)  # Artist histogram
